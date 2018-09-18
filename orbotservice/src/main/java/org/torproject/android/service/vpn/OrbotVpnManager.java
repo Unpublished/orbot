@@ -49,6 +49,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -409,7 +410,10 @@ public class OrbotVpnManager implements Handler.Callback {
     	
         ArrayList<String> customEnv = new ArrayList<String>();
 
-        String[] cmdString = {filePdnsd.getCanonicalPath(),"-c",filePdnsd.getParent() + "/pdnsd.conf"};
+        String[] cmdString = {filePdnsd.getCanonicalPath(), "-c",
+				filePdnsd.getParentFile().getCanonicalPath() + "/pdnsd.conf"};
+        Log.d(TAG, "cmdString: " + Arrays.toString(cmdString));
+		Log.d(TAG, "filePdnsd.getParent(): " + filePdnsd.getParent());
         ProcessBuilder pb = new ProcessBuilder(cmdString);
         pb.redirectErrorStream(true);
 		Process proc = pb.start();
