@@ -14,8 +14,8 @@ if (keystorePropertiesFile.canRead()) {
 
 android {
     signingConfigs {
-        release {
-            if (keystorePropertiesFile.canRead()) {
+        if (keystorePropertiesFile.canRead()) {
+            release {
                 keyAlias keystoreProperties['keyAlias']
                 keyPassword keystoreProperties['keyPassword']
                 storeFile file(keystoreProperties['storeFile'])
@@ -48,7 +48,9 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            signingConfig signingConfigs.release
+            if (keystorePropertiesFile.canRead()) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 
